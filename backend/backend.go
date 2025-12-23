@@ -16,7 +16,7 @@ func CreateBackend(addr string) *Backend {
 
 	if err != nil {
 		msg := fmt.Sprintf("Url: %s", urlPtr.String())
-		fmt.Printf("Erro ao criar novo backend.")
+		fmt.Printf("Erro ao criar novo backend.\n")
 		fmt.Errorf(msg)
 	}
 

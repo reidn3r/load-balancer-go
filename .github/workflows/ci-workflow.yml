@@ -2,8 +2,6 @@ name: "ci-pipeline"
 
 on:
   pull_request:
-    branches:
-      - "*"
   
   push:
     branches:
@@ -35,7 +33,7 @@ jobs:
         uses: golangci/golangci-lint-action@v9
         with:
           version: v2.3
-          
+
   build-app:
     runs-on: ubuntu-20.04
     steps:

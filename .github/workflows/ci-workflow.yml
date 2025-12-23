@@ -1,0 +1,27 @@
+name: "ci-pipeline"
+
+on:
+  pull_request:
+    branches:
+      - "*"
+  
+  push:
+    branches:
+      - "main"
+
+jobs:
+  build-and-check-version:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v6 
+
+      - name: setup environment
+        uses: actions/setup-go@v6
+        with:
+          go-version: ">=1.22"
+      
+      - name: Check go version
+        run: go version
+
+      - name: Build app
+        run: go build

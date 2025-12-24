@@ -1,6 +1,8 @@
 package strategies
 
-import "github.com/reidn3r/load-balancer-golang/backend"
+import (
+	"github.com/reidn3r/load-balancer-golang/backend"
+)
 
 type RoundRobinStrategy struct {
 	index uint64

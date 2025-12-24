@@ -24,7 +24,8 @@ func (lb *LoadBalancer) AddBackend(backend backend.Backend) {
 }
 
 func (lb *LoadBalancer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	//OBS(reidner): implementação desse método torna a struct LoadBalancer um Handler,
+	//OBS(reidner): implementação desse método torna
+	// a struct LoadBalancer um Handler,
 	// capaz de sre usado no server http
 	lb.balancingStrategy.Serve(lb.backend, w, r)
 }

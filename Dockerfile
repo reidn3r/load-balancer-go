@@ -8,4 +8,4 @@ WORKDIR /app
 COPY --from=build /app/lb-build ./
 
 EXPOSE 8080
-RUN ["./lb-build"]
+CMD ["./lb-build"]

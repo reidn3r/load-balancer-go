@@ -22,5 +22,5 @@ func BuildStrategy(config config.ConfigObject) (strategies.LoadBalancerStrategyI
 		pool := lb_algorithms.BuildWrrPool(config.BackendPool)
 		return &lb_algorithms.WeightedRoundRobinStrategy{Pool: pool}, nil
 	}
-	return nil, fmt.Errorf("Invalid strategy: %v\n", strategy)
+	return nil, fmt.Errorf("invalid strategy: %v", strategy)
 }

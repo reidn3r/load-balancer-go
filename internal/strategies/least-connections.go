@@ -22,7 +22,11 @@ func (lc *LeastConnStrategy) GetNextBackend(pool []backend.Backend) backend.Back
 	return minConn
 }
 
-func (lc *LeastConnStrategy) Serve(serverPool []backend.Backend, w http.ResponseWriter, r *http.Request) {
+func (lc *LeastConnStrategy) Serve(
+	serverPool []backend.Backend,
+	w http.ResponseWriter,
+	r *http.Request,
+) {
 	//add. mutex
 	leastConn := lc.GetNextBackend(serverPool)
 	lc.BackendMapper[leastConn]++

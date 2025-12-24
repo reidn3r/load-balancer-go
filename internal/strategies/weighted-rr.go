@@ -29,7 +29,11 @@ func (wrr *WeightedRoundRobinStrategy) GetNextBackend(pool []backend.Backend) ba
 	return current.Server
 }
 
-func (wrr *WeightedRoundRobinStrategy) Serve(serverPool []backend.Backend, w http.ResponseWriter, r *http.Request) {
+func (wrr *WeightedRoundRobinStrategy) Serve(
+	serverPool []backend.Backend,
+	w http.ResponseWriter,
+	r *http.Request,
+) {
 	server := wrr.GetNextBackend(serverPool)
 	server.Proxy.ServeHTTP(w, r)
 }

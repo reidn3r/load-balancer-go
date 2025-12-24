@@ -23,6 +23,10 @@ func main() {
 		Handler: lb,
 	}
 	fmt.Println("[LB]: live at http://localhost:8080")
-	server.ListenAndServe()
+
+	err := server.ListenAndServe()
+	if err != nil {
+		log.Fatal("Error while creating load balance http server")
+	}
 	log.Fatal(server.ListenAndServe())
 }

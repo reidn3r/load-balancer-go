@@ -2,6 +2,7 @@ package backend
 
 import (
 	"fmt"
+	"log"
 	"net/http/httputil"
 	"net/url"
 )
@@ -17,7 +18,7 @@ func CreateBackend(addr string) *Backend {
 	if err != nil {
 		msg := fmt.Sprintf("Url: %s", urlPtr.String())
 		fmt.Printf("Erro ao criar novo backend.\n")
-		fmt.Errorf(msg)
+		log.Fatal(msg)
 	}
 
 	return &Backend{

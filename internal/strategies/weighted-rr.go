@@ -1,0 +1,47 @@
+package strategies
+
+import (
+	"net/http"
+
+	"github.com/reidn3r/load-balancer-golang/backend"
+)
+
+type WeightedRoundRobinStrategy struct {
+	Pool  []*WrrServer
+	index uint
+}
+
+type WrrServer struct {
+	Server backend.Backend
+	Weight uint
+	count  uint
+}
+
+func (wrr *WeightedRoundRobinStrategy) GetNextBackend(pool []backend.Backend) backend.Backend {
+	current := wrr.Pool[wrr.index]
+	current.count++
+
+	if current.count >= current.Weight {
+		current.count = 0
+		wrr.index = (wrr.index + 1) % uint(len(wrr.Pool))
+	}
+
+	return current.Server
+}
+
+func (wrr *WeightedRoundRobinStrategy) Serve(
+	serverPool []backend.Backend,
+	w http.ResponseWriter,
+	r *http.Request,
+) {
+	server := wrr.GetNextBackend(serverPool)
+	server.Proxy.ServeHTTP(w, r)
+}
+
+func CreateNewWrrServer(server backend.Backend, weight uint) *WrrServer {
+	return &WrrServer{
+		Server: server,
+		Weight: weight,
+		count:  0,
+	}
+}

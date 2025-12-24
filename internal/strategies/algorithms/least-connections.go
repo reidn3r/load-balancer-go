@@ -1,4 +1,4 @@
-package strategies
+package lb_algorithms
 
 import (
 	"net/http"

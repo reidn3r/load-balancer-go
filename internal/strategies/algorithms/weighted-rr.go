@@ -1,9 +1,10 @@
-package strategies
+package lb_algorithms
 
 import (
 	"net/http"
 
 	"github.com/reidn3r/load-balancer-golang/backend"
+	"github.com/reidn3r/load-balancer-golang/config"
 )
 
 type WeightedRoundRobinStrategy struct {
@@ -39,9 +40,26 @@ func (wrr *WeightedRoundRobinStrategy) Serve(
 }
 
 func CreateNewWrrServer(server backend.Backend, weight uint) *WrrServer {
+	if weight == 0 {
+		weight = 1
+	}
+
 	return &WrrServer{
 		Server: server,
 		Weight: weight,
 		count:  0,
 	}
+}
+
+func BuildWrrPool(backendPool []config.BackendConfigObject) []*WrrServer {
+
+	pool := make([]*WrrServer, 0, len(backendPool))
+
+	for _, backendObj := range backendPool {
+		b := backend.CreateBackend(backendObj.URL)
+		wrr := CreateNewWrrServer(*b, uint(backendObj.Weight))
+		pool = append(pool, wrr)
+	}
+
+	return pool
 }

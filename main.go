@@ -1,32 +1,17 @@
 package main
 
 import (
-	"fmt"
 	"log"
-	"net/http"
+	"os"
 
-	"github.com/reidn3r/load-balancer-golang/backend"
-	load_balancer "github.com/reidn3r/load-balancer-golang/internal/balancer"
-	"github.com/reidn3r/load-balancer-golang/internal/strategies"
+	"github.com/reidn3r/load-balancer-golang/bootstrap"
+	"github.com/reidn3r/load-balancer-golang/config"
 )
 
 func main() {
-	roundRobin := &strategies.RoundRobinStrategy{}
-	lb := load_balancer.NewLoadBalancer(roundRobin)
-
-	lb.AddBackend(*backend.CreateBackend("http://localhost:3000"))
-	lb.AddBackend(*backend.CreateBackend("http://localhost:3001"))
-	lb.AddBackend(*backend.CreateBackend("http://localhost:3002"))
-
-	server := &http.Server{
-		Addr:    ":8080",
-		Handler: lb,
-	}
-	fmt.Println("[LB]: live at http://localhost:8080")
-
-	err := server.ListenAndServe()
+	argData, err := config.ReadArgs(os.Args)
 	if err != nil {
-		log.Fatal("Error while creating load balance http server")
+		log.Fatal(err)
 	}
-	log.Fatal(server.ListenAndServe())
+	bootstrap.Bootstrap(argData.FilePath)
 }

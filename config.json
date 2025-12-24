@@ -1,0 +1,9 @@
+{
+  "applicationPort": 3000,
+  "balancingStrategy": "least-connections",
+  "backend": [
+    {"url": "http://localhost:3000"},
+    {"url": "http://localhost:3001"},
+    {"url": "http://localhost:3002"}
+  ]
+}

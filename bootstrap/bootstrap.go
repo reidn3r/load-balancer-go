@@ -59,7 +59,9 @@ func setup(config config.ConfigObject) {
 		Handler: lb,
 	}
 
-	fmt.Println("[LB]: live at http://localhost:8080")
+	msg := fmt.Sprintf("[LB]: live at http://localhost:%d", config.ApplicationPort)
+	fmt.Println(msg)
+
 	err = server.ListenAndServe()
 
 	if err != nil {

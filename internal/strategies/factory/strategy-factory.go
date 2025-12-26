@@ -2,6 +2,7 @@ package strategy_factory
 
 import (
 	"fmt"
+	"net/url"
 
 	"github.com/reidn3r/load-balancer-golang/config"
 	"github.com/reidn3r/load-balancer-golang/internal/strategies"
@@ -16,7 +17,8 @@ func BuildStrategy(config config.ConfigObject) (strategies.LoadBalancerStrategyI
 		return &lb_algorithms.RoundRobinStrategy{}, nil
 	}
 	if strategy == strategies_types.LeastConnections {
-		return &lb_algorithms.LeastConnStrategy{}, nil
+		mapper := make(map[*url.URL]uint64)
+		return &lb_algorithms.LeastConnStrategy{BackendMapper: mapper}, nil
 	}
 	if strategy == strategies_types.WeightedRoundRobin {
 		pool := lb_algorithms.BuildWrrPool(config.BackendPool)

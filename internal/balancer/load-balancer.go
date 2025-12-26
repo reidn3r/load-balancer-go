@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	backend "github.com/reidn3r/load-balancer-golang/backend"
+	"github.com/reidn3r/load-balancer-golang/internal/logger"
 	"github.com/reidn3r/load-balancer-golang/internal/strategies"
 )
 
@@ -27,5 +28,9 @@ func (lb *LoadBalancer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	//OBS(reidner): implementação desse método torna
 	// a struct LoadBalancer um Handler,
 	// capaz de sre usado no server http
+	logger.LogRequest(r)
 	lb.balancingStrategy.Serve(lb.backend, w, r)
+
+	lrw := logger.NewLoggingResponseWriter(w)
+	logger.LogResponse(lrw.StatusCode, lrw.Body.Len())
 }

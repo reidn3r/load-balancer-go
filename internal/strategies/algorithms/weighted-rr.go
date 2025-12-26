@@ -2,6 +2,7 @@ package lb_algorithms
 
 import (
 	"net/http"
+	"sync"
 
 	"github.com/reidn3r/load-balancer-golang/backend"
 	"github.com/reidn3r/load-balancer-golang/config"
@@ -10,6 +11,7 @@ import (
 type WeightedRoundRobinStrategy struct {
 	Pool  []*WrrServer
 	index uint
+	mutex sync.Mutex
 }
 
 type WrrServer struct {
@@ -19,6 +21,9 @@ type WrrServer struct {
 }
 
 func (wrr *WeightedRoundRobinStrategy) GetNextBackend(pool []backend.Backend) backend.Backend {
+	wrr.mutex.Lock()
+	defer wrr.mutex.Unlock()
+
 	current := wrr.Pool[wrr.index]
 	current.count++
 

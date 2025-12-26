@@ -10,7 +10,7 @@ import (
 
 type LeastConnStrategy struct {
 	BackendMapper map[*url.URL]uint64
-	mutex         *sync.Mutex
+	mutex         sync.Mutex
 }
 
 func (lc *LeastConnStrategy) GetNextBackend(pool []backend.Backend) backend.Backend {

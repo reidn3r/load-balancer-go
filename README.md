@@ -1,8 +1,10 @@
 # Load Balancer Go
 
+- Projeto de estudo, criado com o objetivo de aprofundar conhecimentos em Go. 
+
 ## Padrões de Projeto e Arquitetura
 
-Este projeto implementa um **load balancer** em Go utilizando o **Strategy Pattern** e a **Factory**.  
+Este projeto implementa um **load balancer** em Go utilizando o **Strategy Pattern** e **Simple Factory**.  
 As estratégias possíveis são:  
 
 - **Round-Robin**  

@@ -85,9 +85,9 @@ O load balancer pode ser inicializado a partir de um arquivo **JSON de configura
 {
   "balancingStrategy": "round-robin",
   "backend": [
-    {"url": "http://service1.example.com", "weight": 4},
-    {"url": "http://service2.example.com", "weight": 2},
-    {"url": "http://service3.example.com", "weight": 1}
+    {"url": "http://service1.example.com"},
+    {"url": "http://service2.example.com"},
+    {"url": "http://service3.example.com"}
   ]
 }
 ```

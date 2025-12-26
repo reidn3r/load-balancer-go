@@ -10,6 +10,7 @@ import (
 	"github.com/reidn3r/load-balancer-golang/backend"
 	"github.com/reidn3r/load-balancer-golang/config"
 	load_balancer "github.com/reidn3r/load-balancer-golang/internal/balancer"
+	"github.com/reidn3r/load-balancer-golang/internal/logger"
 	strategy_factory "github.com/reidn3r/load-balancer-golang/internal/strategies/factory"
 )
 
@@ -19,6 +20,7 @@ func Bootstrap(configPath string) {
 		msg := fmt.Sprintf("Error while reading config file: %s\n", configPath)
 		log.Fatal(msg)
 	}
+	logger.LogConfig(cfg)
 	setup(cfg)
 }
 
@@ -35,8 +37,6 @@ func readFile(path string) (config.ConfigObject, error) {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Printf("%v\n", cfgObject)
 
 	return cfgObject, nil //retorna nil
 }
@@ -59,7 +59,7 @@ func setup(config config.ConfigObject) {
 		Handler: lb,
 	}
 
-	msg := fmt.Sprintf("[LB]: live at http://localhost:%d", 2703)
+	msg := fmt.Sprintf("[LB] Running at PORT:%d", 2703)
 	fmt.Println(msg)
 
 	err = server.ListenAndServe()

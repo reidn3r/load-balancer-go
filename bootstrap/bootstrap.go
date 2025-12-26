@@ -53,13 +53,13 @@ func setup(config config.ConfigObject) {
 		lb.AddBackend(*backend.CreateBackend(b.URL))
 	}
 
-	addr := fmt.Sprintf(":%d", config.ApplicationPort)
+	addr := fmt.Sprintf(":%d", 2703)
 	server := &http.Server{
 		Addr:    addr,
 		Handler: lb,
 	}
 
-	msg := fmt.Sprintf("[LB]: live at http://localhost:%d", config.ApplicationPort)
+	msg := fmt.Sprintf("[LB]: live at http://localhost:%d", 2703)
 	fmt.Println(msg)
 
 	err = server.ListenAndServe()

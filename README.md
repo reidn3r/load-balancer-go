@@ -1,6 +1,6 @@
 # Load Balancer Go
 
-- Projeto de estudo, criado com o objetivo de aprofundar conhecimentos em Go. 
+- Projeto de estudo criado com o objetivo de aprofundar conhecimentos em Go. 
 
 ## Padrões de Projeto e Arquitetura
 
